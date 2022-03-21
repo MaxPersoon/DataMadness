@@ -21,7 +21,7 @@ if refresh:
     content = content[5:]
 
     content.insert(4, "def dataMergeClean():\n")
-    content.insert(-1, "return tweets\n")
+    content.insert(-1, "return users\n")
 
     for i, x in enumerate(content):
         if i > 4: content[i] = "\t" + x
@@ -32,29 +32,9 @@ if refresh:
 
 from DataMadness import dataMergeClean
 
-data = pd.DataFrame(dataMergeClean())
+users = pd.DataFrame(dataMergeClean())
 
 # print(data.columns.values)
 
-users = []
-
-
-def getUser(user):
-    user=None
-    try:
-        user =TwitterUserScraper(str(user), isUserId=True).entity
-    except Exception as e:
-        user=None
-    return user
-
-
-users = data["userId"]
-
-print("test")
-with ThreadPoolExecutor(max_workers=20) as pool:
-    response_list = list(tqdm(pool.map(getUser, users)))
-
-print(response_list[:5])
-
 usersFile = open('usersFile.pickle', 'wb')
-pickle.dump(response_list, usersFile)
+pickle.dump(users, usersFile)

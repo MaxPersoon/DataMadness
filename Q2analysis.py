@@ -9,20 +9,7 @@ if os.path.isfile("usersFile.pickle"):
     users = pickle.load(usersFile)
 else:
     users = {}
-    print("yo wtf")
+    print("what the actual yeeticus")
 
 userDict={}
 
-# def addUserToDict(user):
-#     userDict[str(user.entity.id)] = user
-#
-# with ThreadPoolExecutor(max_workers=50) as pool:
-#     response_list = list(tqdm(pool.map(addUserToDict, users)))
-
-for user in users:
-    try:
-        userDict[str(user.id)]=user
-    except Exception as e:
-        print(e)
-
-print(userDict.keys())
